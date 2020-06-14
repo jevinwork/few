@@ -1,0 +1,23 @@
+/**
+ * import public style
+ */
+@import "public/wrap";
+@import "public/title";
+@import "public/article";
+@import "public/list";
+
+/**
+ * import project style for display
+ */
+@import "layout/header";
+@import "layout/footer";
+@import "layout/sidebar";
+@import "pages/pages";
+
+/**
+ * import porject style for mobile
+ */
+@import "layout/header_mob";
+@import "layout/footer_mob";
+@import "layout/sidebar_mob";
+@import "pages/pages_mob";
