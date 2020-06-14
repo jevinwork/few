@@ -1,0 +1,23 @@
+{
+  "name": "dooioomoo/few",
+  "description": "Front-end web design framework",
+  "authors": [
+    {
+      "name": "Ryan soong",
+      "homepage": "http://www.fduit.com/"
+    }
+  ],
+  "license": "MIT",
+  "type": "project",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": "^5.5 || ^7.0",
+    "composer/installers": "^v1.3",
+    "dooioomoo/few": ">=1.0"
+  }
+}
