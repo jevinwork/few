@@ -18,6 +18,10 @@
   "require": {
     "php": "^5.5 || ^7.0",
     "composer/installers": "^v1.3",
-    "dooioomoo/few": ">=1.0"
+    "twitter/bootstrap": "^4.5",
+    "fortawesome/font-awesome": "^5.0",
+    "components/jquery": "^3.4.1",
+    "components/jqueryui": "^1.12.1"
+
   }
 }
