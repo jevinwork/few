@@ -29,9 +29,14 @@ module.exports = {
       .pipe(build.gulp.dest(exportPath));
   },
   WebFonts: () => {
-    return build.gulp
-      .src(config.webfonts.importPath, { base: "." })
-      .pipe(build.plumber())
-      .pipe(build.gulp.dest(config.webfonts.exportPath));
+    var importPath = settings.webfonts;
+    var R = importPath.map(function (element) {
+      console.log(element[0], element[1]);
+      return build.gulp
+        .src(element[0])
+        .pipe(build.plumber())
+        .pipe(build.gulp.dest(element[1]));
+    });
+    return build.merge(R);
   },
 };

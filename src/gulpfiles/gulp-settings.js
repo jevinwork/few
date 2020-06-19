@@ -61,16 +61,9 @@ module.exports = {
       common: [images],
     },
   },
-  webfonts: {
-    importPath: {
-      common: [
-        vo + "fortawesome/webfonts/**/*",
-        vo + "webfontkit/roboto/fonts/**/*",
-        vo + "webfontkit/open-sans/fonts/**/*",
-      ],
-    },
-    exportPath: {
-      common: [font],
-    },
-  },
+  webfonts: [
+    [vo + "fortawesome/font-awesome/webfonts/**/*", font + "fontawesome"],
+    [vo + "webfontkit/roboto/fonts/**/*", font + "roboto"],
+    [vo + "webfontkit/open-sans/fonts/**/*", font + "open-sans"],
+  ],
 };
