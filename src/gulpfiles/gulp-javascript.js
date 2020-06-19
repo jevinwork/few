@@ -21,7 +21,7 @@ module.exports = {
   },
   footJs: () => {
     return build.gulp
-      .src(setting.js.importPath.foot)
+      .src(setting.js.importPath.app)
       .pipe(
         build.minify({
           ext: {
@@ -31,6 +31,6 @@ module.exports = {
           ignoreFiles: [".combo.js", ".min.js", "-min.js"],
         })
       )
-      .pipe(build.gulp.dest(setting.js.exportPath.foot));
+      .pipe(build.gulp.dest(setting.js.exportPath.app));
   },
 };

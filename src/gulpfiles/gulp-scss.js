@@ -31,7 +31,7 @@ module.exports = {
   WebFonts: () => {
     var importPath = settings.webfonts;
     var R = importPath.map(function (element) {
-      console.log(element[0], element[1]);
+      // console.log(element[0], element[1]);
       return build.gulp
         .src(element[0])
         .pipe(build.plumber())

@@ -52,10 +52,12 @@ const defaultTask = build.gulp.series(
   build.gulp.series(sassTask.commonToCss, sassTask.createCss, cleanCss),
   build.gulp.series(jsTask.commonJs, jsTask.footJs, cleanJs)
 );
-
+exports.commonscss = build.gulp.series(sassTask.commonToCss, cleanCss);
+exports.appcss = build.gulp.series(sassTask.createCss, cleanCss);
 exports.webfont = sassTask.WebFonts;
+exports.commonjs = build.gulp.series(jsTask.commonJs, cleanJs);
+exports.appjs = build.gulp.series(jsTask.footJs, cleanJs);
 exports.imagesMini = imgMini.ImageMini;
-// exports.watch = build.gulp.series(defaultTask, build.gulp.parallel(watch, build.php, build.browserSync_start));
 exports.watch = build.gulp.series(
   defaultTask,
   build.gulp.parallel(watch, build.browserSync_start)

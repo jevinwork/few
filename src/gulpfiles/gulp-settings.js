@@ -11,7 +11,7 @@ const font = assetFolder + "fonts" + "/";
 
 const srcFolder = "src" + "/";
 const src_sass = srcFolder + "scss" + "/";
-const src_img = srcFolder + "img" + "/";
+const src_img = srcFolder + "imgs" + "/";
 const src_js = srcFolder + "js" + "/";
 const src_fonts = srcFolder + "fonts" + "/";
 
@@ -39,12 +39,12 @@ module.exports = {
   js: {
     importPath: {
       common: [
-        vo + "components/jquery/jqery.js",
-        vo + "components/jqueryui/jqery-ui.js",
+        vo + "components/jquery/jquery.js",
+        vo + "components/jqueryui/jquery-ui.js",
         src_js + "common/**/*",
         src_js + "core/*.js",
       ],
-      app: [src_js + "app/*.js"],
+      app: [src_js + "object/*.js"],
     },
     exportPath: {
       common: [js],
