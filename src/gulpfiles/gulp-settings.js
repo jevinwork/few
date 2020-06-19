@@ -1,6 +1,8 @@
 const server = "template.so";
 const port = "3000";
 
+const vo = "vendor/";
+
 const assetFolder = "assets" + "/";
 const css = assetFolder + "css" + "/";
 const js = assetFolder + "js" + "/";
@@ -26,22 +28,27 @@ module.exports = {
   clearFolder: assetFolder + "temp/",
   sass: {
     importPath: {
-      common: [src_sass + "include/**/*"],
-      project: [sass + "*.scss"],
+      common: [src_sass + "common/common.scss"],
+      app: [src_sass + "app/app.scss"],
     },
     exportPath: {
       common: [css],
-      project: [css],
+      app: [css],
     },
   },
   js: {
     importPath: {
-      common: [sass + "js/common/**/*"],
-      foot: [sass + "js/*.js"],
+      common: [
+        vo + "components/jquery/jqery.js",
+        vo + "components/jqueryui/jqery-ui.js",
+        src_js + "common/**/*",
+        src_js + "core/*.js",
+      ],
+      app: [src_js + "app/*.js"],
     },
     exportPath: {
       common: [js],
-      foot: [js],
+      app: [js],
     },
   },
   images: {
@@ -52,6 +59,18 @@ module.exports = {
     },
     exportPath: {
       common: [images],
+    },
+  },
+  webfonts: {
+    importPath: {
+      common: [
+        vo + "fortawesome/webfonts/**/*",
+        vo + "webfontkit/roboto/fonts/**/*",
+        vo + "webfontkit/open-sans/fonts/**/*",
+      ],
+    },
+    exportPath: {
+      common: [font],
     },
   },
 };

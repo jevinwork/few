@@ -16,18 +16,21 @@ module.exports = {
       .pipe(build.gulp.dest(exportPath));
   },
   createCss: () => {
-    var importPath = settings.sass.importPath.allCss,
-      exportPath = settings.sass.exportPath.allCss;
+    var importPath = settings.sass.importPath.app,
+      exportPath = settings.sass.exportPath.app;
     return build.gulp
       .src(importPath)
+      .pipe(build.plumber())
       .pipe(build.sass({ outputStyle: "expanded" }))
-      .pipe(build.gulp.dest(exportPath))
-      .pipe(build.postcss([build.cssnano()]))
+      .pipe(build.concat("app.css"))
+      .pipe(build.gulp.dest(settings.clearFolder))
+      .pipe(build.rename({ suffix: ".min" }))
+      .pipe(build.postcss([build.autoprefixer(), build.cssnano()]))
       .pipe(build.gulp.dest(exportPath));
   },
   WebFonts: () => {
     return build.gulp
-      .src(config.webfonts.importPath)
+      .src(config.webfonts.importPath, { base: "." })
       .pipe(build.plumber())
       .pipe(build.gulp.dest(config.webfonts.exportPath));
   },

@@ -21,7 +21,9 @@
     "twitter/bootstrap": "^4.5",
     "fortawesome/font-awesome": "^5.0",
     "components/jquery": "^3.4.1",
-    "components/jqueryui": "^1.12.1"
+    "components/jqueryui": "^1.12.1",
+    "webfontkit/roboto":"^1.0",
+    "webfontkit/open-sans": "^1.0"
 
   }
 }

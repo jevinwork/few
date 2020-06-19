@@ -53,6 +53,7 @@ const defaultTask = build.gulp.series(
   build.gulp.series(jsTask.commonJs, jsTask.footJs, cleanJs)
 );
 
+exports.webfont = sassTask.WebFonts;
 exports.imagesMini = imgMini.ImageMini;
 // exports.watch = build.gulp.series(defaultTask, build.gulp.parallel(watch, build.php, build.browserSync_start));
 exports.watch = build.gulp.series(
