@@ -14,5 +14,6 @@
   "bugs": {
     "url": "https://github.com/dooioomoo/few/issues"
   },
-  "homepage": "https://github.com/dooioomoo/few#readme"
+  "homepage": "https://github.com/dooioomoo/few#readme",
+  "dependencies": {}
 }

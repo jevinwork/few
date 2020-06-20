@@ -1,3 +1,4 @@
 $(function () {
-  alert("this is application!");
+  // alert("this is application!");
+  $('[data-toggle="popover"]').popover();
 });

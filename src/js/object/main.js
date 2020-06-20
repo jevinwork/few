@@ -1,3 +1,3 @@
 $(function () {
-  alert("this is main!");
+  // alert("this is main!");
 });

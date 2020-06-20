@@ -18,12 +18,12 @@ module.exports = {
 
     var R = imgPath.map(function (element) {
       return build.gulp
-        .src(element + "*")
+        .src(element)
         .pipe(
           build.imagemin(
             [
               build.imagemin.gifsicle({ interlaced: true }),
-              build.imagemin.jpegtran({ progressive: true }),
+              build.imagemin.mozjpeg({ progressive: true }),
               build.imagemin.optipng({ optimizationLevel: 5 }),
               build.imagemin.svgo({
                 plugins: [

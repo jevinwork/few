@@ -1,4 +1,4 @@
-const server = "template.so";
+const server = "few.so";
 const port = "3000";
 
 const vo = "vendor/";
@@ -41,6 +41,7 @@ module.exports = {
       common: [
         vo + "components/jquery/jquery.js",
         vo + "components/jqueryui/jquery-ui.js",
+        vo + "twitter/bootstrap/dist/js/bootstrap.bundle.js",
         src_js + "common/**/*",
         src_js + "core/*.js",
       ],
@@ -53,9 +54,7 @@ module.exports = {
   },
   images: {
     importPath: {
-      common: [
-        // sass + 'js/common/**/*'
-      ],
+      common: [src_img],
     },
     exportPath: {
       common: [images],
