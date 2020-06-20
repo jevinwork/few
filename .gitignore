@@ -1,9 +1,6 @@
 
 /vendor/
 /assets/
-/.vscode/
-.composer.lock
-.package-lock.json
 index.html
 
 
@@ -16,6 +13,9 @@ index.html
 .Trashes
 ehthumbs.db
 Thumbs.db
+.composer.lock
+.package-lock.json
+/.vscode/
 
 # Logs and databases #
 ######################

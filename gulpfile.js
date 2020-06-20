@@ -52,7 +52,7 @@ const watch = () => {
   );
 
   build.gulp.watch(
-    [setting.assetFolder + "**/*", "./**/*.php"],
+    [setting.assetFolder + "**/*", "./**/*.php", "./**/*.html"],
     build.browserSync_reload
   );
 };
