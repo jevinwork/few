@@ -22,13 +22,13 @@ Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
     - gulp-settings.js
 </pre>
 
-1. gulp-settings.js 是变量文件，用来设置对应的文件位置和文件结构。
-2. gulp-require.js 所有使用的gulp插件和函数对应文件。被gulpfile.js和其他文件调用，用来操作对应的gulp任务。
-3. gulp-scss.js 包含 ```commonToCss``` 全局scss和 ```createCss``` 项目scss的编译、压缩、合并任务。也包含了 ``` WebFonts ``` 将``` src > fonts ``` 目录的前端化模块。
-4. gulp-javascript 包含了 ```commonJs``` 和 ```footJs``` 模块，用来制作全局加载的Js脚本和页面底部分别调用的Js脚本，并进行压缩、合并，方便前端调用。
-5. gulp-image 包含了 ``` OutImage ``` 模块，将 ``` src > imgs ``` 目录下的图片文件前端化，``` ImageMini ``` 模块将会把 ``` asssets > images ``` 里的图片文件对应进行压缩减肥。
+1. gulp-settings.js 是**变量文件**，用来设置对应的文件位置和文件结构。
+2. gulp-require.js 所有使用的**gulp插件和函数**对应文件。被gulpfile.js和其他文件调用，用来调用对应的gulp任务插件。
+3. gulp-scss.js **scss文件任务模块**：包含 ```commonToCss``` 全局scss和 ```createCss``` 项目scss的编译、压缩、合并任务。也包含了 ``` WebFonts ``` 将``` src > fonts ``` 目录的前端化的**字体移动模块**。
+4. gulp-javascript  **js文件任务模块**：包含了 ```commonJs``` 和 ```footJs``` 模块，用来制作全局加载的Js脚本和页面底部分别调用的Js脚本，并进行压缩、合并，方便前端调用。
+5. gulp-image **图片处理模块**：包含了 ``` OutImage ``` 模块，将 ``` src > imgs ``` 目录下的图片文件前端化，``` ImageMini ``` 模块将会把 ``` asssets > images ``` 里的图片文件对应进行压缩减肥。
 
-
+<div style="min-height:2rem;"> </div>
 
 > 以下是基本的文件结构。
 
@@ -45,6 +45,8 @@ Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
 
 1. favicon.ico 是一个空ico文件，用来对应网站图标项。
 2. composer.json composer安装配置文件
+
+<div style="min-height:2rem;"> </div>
 
 > src目录下已区分文件存放位置，并对应全局文件和项目文件的目录。gulp会自动根据文件的改动重新编译文件到 ``` assets ``` 目录的对应文件夹内，方便前端调用，然后会自动reload browsersync来刷新前端显示。
 
@@ -78,8 +80,19 @@ Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
       - common.scss
 </pre>
 
+
+<div style="min-height:2rem;"> </div>
+
 ### 如何使用？
 
 #### 1. 环境需求
+
+1. **网页制作环境**：
+    >我使用的是docker制作的宝塔服务器环境，也可以使用类似xampp应用来搭建您的本地网站服务。目的主要是为了可以通过hosts文件的设置，实现本地域名访问前端网站。因为在 ``` gulp-settings.js``` 文件中，我们将需要设置本地访问域名，来对应 ``` BrowserSync ``` 的自动刷新服务，来实现同时在不同设备显示前端的功能。
+
+    >    这里向您推荐： [docker 安装宝塔](https://www.jianshu.com/p/7151e3d11a84) 以及 [docker挂载本地目录并映射端口,生产环境中的docker部署方案(多端口多容器)](https://blog.csdn.net/lishirong/article/details/72763550)
+
+2. Node环境安装：
+
 #### 2. gulp任务介绍
 #### 3. 目录响应
