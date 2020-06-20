@@ -8,6 +8,8 @@
 
 ## Gulp + Browsersync + Bootstrap + Fontawesome
 
+此文件模板使用**Gulp4**和**ES6**方式制作完成。
+
 Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
 
 <pre>
