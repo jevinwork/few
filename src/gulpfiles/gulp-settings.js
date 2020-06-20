@@ -14,7 +14,7 @@ const src_sass = srcFolder + "scss" + "/";
 const src_img = srcFolder + "imgs" + "/";
 const src_js = srcFolder + "js" + "/";
 const src_fonts = srcFolder + "fonts" + "/";
-
+const js_loader = require("../js/js-require.js");
 module.exports = {
   root: "/",
   server: server,
@@ -38,13 +38,10 @@ module.exports = {
   },
   js: {
     importPath: {
-      common: [
-        vo + "components/jquery/jquery.js",
-        vo + "components/jqueryui/jquery-ui.js",
-        vo + "twitter/bootstrap/dist/js/bootstrap.bundle.js",
+      common: js_loader.list.concat([
         src_js + "common/**/*",
         src_js + "core/*.js",
-      ],
+      ]),
       app: [src_js + "object/*.js"],
     },
     exportPath: {
