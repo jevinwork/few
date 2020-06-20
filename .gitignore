@@ -13,8 +13,8 @@ index.html
 .Trashes
 ehthumbs.db
 Thumbs.db
-.composer.lock
-.package-lock.json
+composer.lock
+package-lock.json
 /.vscode/
 
 # Logs and databases #
