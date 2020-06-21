@@ -295,14 +295,14 @@ module.exports = {
       ```
     > 用上面的的方式进行多个文件的加载
       
-2. scss文件说明
+2. **scss文件说明**
     > scss文件分为```common```全局和```app```项目两个目录，任务编译时，不会编译子目录里的文件，只会通过数组设定的文件，进行索引式编译。其他的scss文件请在```common.scss```或者```app.scss```文件中使用 ```@import```的方式引入。
-3. js文件说明
+3. **js文件说明**
     > js文件分为三个目录，分别是：common(全局js)、core(核心)、object(分散调用)。优先次序为common>core>object。
 
-    > **js-require.js**：是一个js源手动设定模块，它和common、core、object没有关系，但是会加载在他们三个目录所有js**之前**，主要为了方便调用诸如jquery、vue.js等框架型脚本来使用。可以根据需要，自己安排文件的加载位置和先后顺序。gulp会优先读取这里的js，并合并到```assets/js/common.min.js```文件中去。
+    > **js-require.js**：是一个js源手动设定模块，它和common、core、object没有关系，但是会加载在他们三个目录所有js**之前**，主要为了方便调用诸如jquery、vue.js等框架型脚本来使用。可以根据需要，自己安排文件的加载位置和先后顺序。gulp会优先读取这里的js，并合并到```assets/js/common.min.js```文件中去。 
 
-4. webfont不同数组方式
+4. **webfont不同数组方式**
     > 由于webfont存放时可能会被同名覆盖，所以推荐以独立目录方式存放fonts文件。比如
 
     ```
