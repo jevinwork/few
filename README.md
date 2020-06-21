@@ -85,6 +85,15 @@ Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
 
 ### 如何使用？
 
+此项目已经发布在composer的安装列表中，可以使用composer来进行安装。
+
+```
+composer create-project dooioomoo/few . dev-master
+```
+> 这个命令可以把few文件模板直接安装在当前目录（使用了“.”作为安装目录，请不要忽略这个“.”），并自动安装所需要的依赖。如果你已经熟悉了这个文件模板，也可以自己增加依赖，并集成到你的项目中去。
+
+> [Composer 安装与使用](https://www.runoob.com/w3cnote/composer-install-and-usage.html)
+
 #### 1. 环境需求
 
 1. **网页制作环境**：
@@ -92,7 +101,7 @@ Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
 
     >    这里向您推荐： [docker 安装宝塔](https://www.jianshu.com/p/7151e3d11a84) 以及 [docker挂载本地目录并映射端口,生产环境中的docker部署方案(多端口多容器)](https://blog.csdn.net/lishirong/article/details/72763550)
 
-2. NodeJs环境及Gulp安装：
+2. **NodeJs环境及Gulp安装**：
 
     >   首先请[**访问NodeJs官方网站**](https://nodejs.org/zh-cn/)，并下载NodeJs进行安装。Mac的朋友推荐使用 ``` Homebrew``` 进行安装，因为之后的gulp安装及使用大几率会出现权限问题。Homebrew + sudo可以很好的解决这些问题。安装好后，可以打开命令窗口，通过以下命令进行验证，它会出现npm的版本号。
 
@@ -124,6 +133,61 @@ Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
 
  3. **完成以上两项基本配置后**
     
+    > 编辑 ``` src > gulpfiles > gulp-settings.js``` 文件，将 ``` const server = "few.so";``` 变量中的 ``` few.so ``` 修改为你的本地域名访问地址。例如：
 
-#### 2. gulp任务介绍
+    ``` const server = "localhost"; ```
+
+    > 或者与hosts文件中对应的域名指向
+
+    ```
+    # hosts
+    127.0.0.1   mywebsite.com
+    ```
+
+    ```
+    # gulp-settings.js
+
+     const server = "mywebsite.com"; 
+     
+     ```
+
+     > 然后通过使用命令行，**进入到你的网站目录** ：*（包含gulpfile.js文件的根目录）* 下，**创建一个index.html文件**，并使用命令
+
+     ```
+     gulp watch
+     ```
+     > 也可以通过你的编辑器（sublime text,microsoft visual studio code,phpstom等）来创建一个默认的gulp任务，任务指令为：**watch**
+
+     > gulp会自动运行BrowserSync，并打开一个```http://localhost:3000```的窗口，显示你的网站。此时如果你在编辑器中对src目录里的style、js、image、font做了修改，系统会自动运行编译任务，并刷新你的浏览器。
+
+     > 接下来可以自由创建自己的页面结构或者vue.js等前端框架系统了。页面所使用的css、js、images等，请调用```assets```目录下的对应文件。
+
+#### 2. gulp任务介绍及目录响应
+
+gulpfile.js文件中，做了模块调用，并设置了**目录监控对象**，（build.gulp.watch）函数对应不同的目录，来执行相对应的编译和输出任务。
+
+为了方便进行局部管理，我制作了几个任务模块，方便在不进行自动编译的情况下，手动编译部分文件。比如增加了新的font，或者图片，或者仅仅对图片进行压缩等操作时，可以独立完成任务。
+
+**任务介绍**
+
+<pre>
+1. commonscss
+    //编译src/scss/common全局css，并进行合并输出到（assets/css/commin.min.css）
+2. appcss
+    //编译src/scss/app的css,并进行合并输出到（assets/css/app.min.css）
+3. webfont
+    //复制src/fonts目录到（assets/fonts/）
+4. commonjs
+   //编译src/js/common、core全局js,并进行合并输出到（assets/js/common.min.js）
+5. appjs
+   //编译src/js/object里的文件，生成独立的js文件到（assets/js/{对应文件名}.min.js）
+6. imagesMini
+   //压缩(assets/images)目录下的所有图像文件，以便提高网站访问速度。
+7. watch
+   //开发模式，并监视src目录下的scss、js、imgs、fonts目录，并对与修改，作出局部编译、重新合并、输出到assets目录下，并刷新浏览器。
+8. default
+   //对src目录下大的所有文件进行一次编译和生成。
+</pre>
+
 #### 3. 目录响应
+
