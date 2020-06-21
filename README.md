@@ -170,6 +170,8 @@ gulpfile.js文件中，做了模块调用，并设置了**目录监控对象**�
 
 **任务介绍**
 
+可以通过终端命令直接使用 ``` gulp {任务名} ```
+
 <pre>
 1. commonscss
     //编译src/scss/common全局css，并进行合并输出到（assets/css/commin.min.css）
@@ -189,5 +191,136 @@ gulpfile.js文件中，做了模块调用，并设置了**目录监控对象**�
    //对src目录下大的所有文件进行一次编译和生成。
 </pre>
 
-#### 3. 目录响应
+#### 3. gulp-settings.js具体说明
+
+```
+// 配置服务器域名：比如 localhost,mysite.local
+const server = "few.so";
+
+// 默认BroweserSync的打开端口
+const port = "3000";
+
+// 配置依赖目录的路径
+const vo = "vendor/";
+
+// 输出文件的根目录
+const assetFolder = "assets" + "/";
+// css样式表文件输出目录
+const css = assetFolder + "css" + "/";
+// js脚本输出目录
+const js = assetFolder + "js" + "/";
+// 图片输出目录
+const images = assetFolder + "images" + "/";
+// webfont输出目录
+const font = assetFolder + "fonts" + "/";
+
+// 源文件根目录
+const srcFolder = "src" + "/";
+// scss源文件目录
+const src_sass = srcFolder + "scss" + "/";
+// 图片源文件目录，这里建议不要存放psd等设计源格式文件，因为目标目录会被减肥，这里只存放网页显示用的未减肥图片，防止图片被破坏
+const src_img = srcFolder + "imgs" + "/";
+// js脚本源文件目录
+const src_js = srcFolder + "js" + "/";
+// webfont文件
+const src_fonts = srcFolder + "fonts" + "/";
+// 用来读取最优先js脚本列表
+const js_loader = require("../js/js-require.js");
+// settings模块数组
+module.exports = {
+  //各种对应变量，并输出到其他模块
+  root: "/",
+  server: server,
+  port: port,
+  assetFolder: assetFolder,
+  cssPath: css,
+  jsPath: js,
+  imagesPath: images,
+  fontPath: font,
+  srcPath: srcFolder,
+  clearFolder: assetFolder + "temp/",
+  // scss文件的引入和输出指向
+  sass: {
+    importPath: {
+      common: [src_sass + "common/common.scss"],
+      app: [src_sass + "app/app.scss"],
+    },
+    exportPath: {
+      common: [css],
+      app: [css],
+    },
+  },
+  // js文件的引入和输出指向
+  js: {
+    importPath: {
+      common: js_loader.list.concat([
+        src_js + "common/**/*",
+        src_js + "core/*.js",
+      ]),
+      app: [src_js + "object/*.js"],
+    },
+    exportPath: {
+      common: [js],
+      app: [js],
+    },
+  },
+  // 图片的引入和输出指向
+  images: {
+    importPath: {
+      common: [src_img],
+    },
+    exportPath: {
+      common: [images],
+    },
+  },
+  // 字体文件的引入和输出指向
+  webfonts: [
+    [vo + "fortawesome/font-awesome/webfonts/**/*", font + "fontawesome"],
+    [vo + "webfontkit/roboto/fonts/**/*", font + "roboto"],
+    [vo + "webfontkit/open-sans/fonts/**/*", font + "open-sans"],
+  ],
+};
+
+```
+
+1. **数组**
+   
+    > 数组里用来记录编译的文件，多个的时候：
+    ```
+      [
+          src_sass + "common/common.scss",
+          src_sass + "common/other.scss",
+          ....
+      ]
+      ```
+    > 用上面的的方式进行多个文件的加载
+      
+2. scss文件说明
+    > scss文件分为```common```全局和```app```项目两个目录，任务编译时，不会编译子目录里的文件，只会通过数组设定的文件，进行索引式编译。其他的scss文件请在```common.scss```或者```app.scss```文件中使用 ```@import```的方式引入。
+3. js文件说明
+    > js文件分为三个目录，分别是：common(全局js)、core(核心)、object(分散调用)。优先次序为common>core>object。
+
+    > **js-require.js**：是一个js源手动设定模块，它和common、core、object没有关系，但是会加载在他们三个目录所有js**之前**，主要为了方便调用诸如jquery、vue.js等框架型脚本来使用。可以根据需要，自己安排文件的加载位置和先后顺序。gulp会优先读取这里的js，并合并到```assets/js/common.min.js```文件中去。
+
+4. webfont不同数组方式
+    > 由于webfont存放时可能会被同名覆盖，所以推荐以独立目录方式存放fonts文件。比如
+
+    ```
+    - 📂 src
+       - 📂 fonts
+         - 📂 roboto
+         - 📂 opensans
+         - 📂 fontawesome
+         - ...
+    ```
+    > 因此webfont模块的数组需要具备独立的import路径和export路径，方便设定。
+    数组格式为：
+
+    ```
+     webfonts: [
+        [输入路径, 输出路径],
+    ],
+    ```
+    >   按照以上方式增加fonts的文件安排即可。
+
 
