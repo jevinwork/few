@@ -1,8 +1,12 @@
 "use strict";
 /*template:
 
+这是一个实现前端开发自动化的gulp模板，使用前请安装nodejs，并使用
+npm来完成以下的必要安装。
+
 npm i -global gulp gulp-sass gulp-concat gulp-clean autoprefixer gulp-connect-php gulp-minify merge-stream browser-sync child_process gulp-cssnano gulp-rename gulp-eslint gulp-imagemin gulp-newer gulp-postcss gulp-plumber cssnano webpack webpack-stream imagemin-jpegtran imagemin-svgo imagemin-gifsicle imagemin-optipng
 
+by dooioomoo
 */
 const build = require("./src/gulpfiles/gulp-require");
 const setting = require("./src/gulpfiles/gulp-settings");
