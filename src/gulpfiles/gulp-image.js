@@ -1,45 +1,66 @@
-const setting = require("./gulp-settings");
-const build = require("./gulp-require");
+var compile = function (target, done) {
+  if (setting.images[target].import == undefined || setting.images[target].export == undefined) {
+    return done();
+  }
+  if (setting.images[target].import.length < 1 || setting.images[target].export.length < 1) {
+    return done();
+  }
+  return builder.gulp
+    .src(setting.images[target].import)
+    .pipe(builder.plumber())
+    .pipe(builder.gulp.dest(setting.images[target].export));
+}
+
+var ImgMini = function (done) {
+
+  if (setting.images == undefined) {
+    return done();
+  }
+
+  if (setting.images.length < 1) {
+    return done();
+  }
+
+  var imgPath = [];
+
+  Object.keys(setting.images).forEach(element => {
+    setting.images[element].export.forEach(exportPath => {
+      imgPath.push(exportPath);
+    });
+  });
+
+  var R = imgPath.map(function (element) {
+    return builder.gulp
+      .src(element + '/**/*', { allowEmpty: true })
+      .pipe(
+        builder.imagemin(
+          [
+            builder.imagemin.gifsicle({ interlaced: true }),
+            builder.imagemin.mozjpeg({ progressive: true }),
+            builder.imagemin.optipng({ optimizationLevel: 5 }),
+            builder.imagemin.svgo({
+              plugins: [
+                {
+                  removeViewBox: false,
+                  collapseGroups: true,
+                },
+              ],
+            }),
+          ],
+          { verbose: true }
+        )
+      )
+      .pipe(builder.gulp.dest(element));
+  });
+
+  return builder.merge(R);
+}
 
 module.exports = {
-  OutImage: () => {
-    return build.gulp
-      .src(setting.images.importPath.common)
-      .pipe(build.plumber())
-      .pipe(build.gulp.dest(setting.images.exportPath.common));
+  commonImgs: (cb) => {
+    return compile('common', cb)
   },
-
-  ImageMini: () => {
-    //合并上方的输出路径，以便优化图片大小
-    // var imgPath = build.concatArray(
-    //     setting.images.exportPath.common,
-    // );
-    var imgPath = [setting.images.exportPath.common];
-
-    var R = imgPath.map(function (element) {
-      return build.gulp
-        .src(element)
-        .pipe(
-          build.imagemin(
-            [
-              build.imagemin.gifsicle({ interlaced: true }),
-              build.imagemin.mozjpeg({ progressive: true }),
-              build.imagemin.optipng({ optimizationLevel: 5 }),
-              build.imagemin.svgo({
-                plugins: [
-                  {
-                    removeViewBox: false,
-                    collapseGroups: true,
-                  },
-                ],
-              }),
-            ],
-            { verbose: true }
-          )
-        )
-        .pipe(build.gulp.dest(element));
-    });
-
-    return build.merge(R);
+  ImageMini: (cb) => {
+    return ImgMini(cb)
   },
 };

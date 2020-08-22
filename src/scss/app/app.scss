@@ -1,8 +1,9 @@
-@import "../../../vendor/twitter/bootstrap/scss/functions";
-@import "../../../vendor/twitter/bootstrap/scss/mixins";
+@import "vendor/twitter/bootstrap/scss/functions";
+@import "vendor/twitter/bootstrap/scss/mixins";
 @import "../common/settings/bootstrap";
 
 @import ".mixins/mixins";
+
 /**
  * import public style
  */

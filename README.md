@@ -13,20 +13,26 @@
 Gulp执行文件存放于 ``` src > gulpfiles ``` 下面做下简单介绍
 
 <pre>
-📂 src 
+📂 src
   - 📂 gulpfiles
     - gulp-image.js
     - gulp-javascript.js
     - gulp-require.js
     - gulp-scss.js
     - gulp-settings.js
+    - gulp-compile.js
+    - gulp-fonts.js
+    - gulp-watch.js
 </pre>
 
 1. gulp-settings.js 是**变量文件**，用来设置对应的文件位置和文件结构。<br><br>
 2. gulp-require.js 所有使用的**gulp插件和函数**对应文件。被gulpfile.js和其他文件调用，用来调用对应的gulp任务插件。<br><br>
-3. gulp-scss.js **scss文件任务模块**：包含 ```commonToCss``` 全局scss和 ```createCss``` 项目scss的编译、压缩、合并任务。也包含了 ``` WebFonts ``` 将``` src > fonts ``` 目录的前端化的**字体移动模块**。<br><br>
-4. gulp-javascript  **js文件任务模块**：包含了 ```commonJs``` 和 ```footJs``` 模块，用来制作全局加载的Js脚本和页面底部分别调用的Js脚本，并进行压缩、合并，方便前端调用。<br><br>
-5. gulp-image **图片处理模块**：包含了 ``` OutImage ``` 模块，将 ``` src > imgs ``` 目录下的图片文件前端化，``` ImageMini ``` 模块将会把 ``` asssets > images ``` 里的图片文件对应进行压缩减肥。
+3. gulp-scss.js **scss文件任务模块**<br><br>
+4. gulp-javascript.js  **js文件任务模块**<br><br>
+5. gulp-image.js **图片处理模块**<br><br>
+6. gulp-compile.js **輸出scss,js,fonts,images模塊**<br><br>
+7. gulp-fonts.js **字體輸出模塊**<br><br>
+8. gulp-watch.js **文件監控模塊**<br><br>
 
 <div style="min-height:2rem;"> </div>
 
@@ -110,8 +116,12 @@ composer create-project dooioomoo/few . dev-master
     >   安装好NodeJs后，我们需要安装gulp环境。很多人习惯使用package.json来安装环境，因为我习惯使用**全局方式来使用gulp**，一是比较方便，不用每次安装，二是可以尽可能的保持代码目录的整洁性，所以在此不提供package配置，而是尽可能**使用命令方式配置gulp环境**。
 
     > 在命令窗口输入以下命令。如果是linux或者mac建议使用sudo方式获得权限。
-    ```gulp安装
-    npm i -global gulp gulp-sass gulp-concat gulp-clean autoprefixer gulp-connect-php gulp-minify merge-stream browser-sync child_process gulp-cssnano gulp-rename gulp-eslint gulp-imagemin gulp-newer gulp-postcss gulp-plumber cssnano imagemin-jpegtran imagemin-svgo imagemin-gifsicle imagemin-optipng
+    ```npm
+      npm install -g
+    ```
+    或者手動全局安裝
+    ```npm
+    npm i -g gulp gulp-sass gulp-concat gulp-clean gulp-uglify autoprefixer gulp-connect-php gulp-minify merge-stream browser-sync child_process gulp-cssnano gulp-rename gulp-eslint gulp-imagemin gulp-newer gulp-postcss gulp-plumber gulp-preprocess gulp-wait dotenv cssnano webpack webpack-stream imagemin-jpegtran imagemin-svgo imagemin-gifsicle imagemin-optipng
     ```
     >   **安装成功完成后** ，还需要配置以下**系统环境**里的$PATH信息，这里我提供一个快捷设定，你可以把它粘贴到你的命令窗口，并执行，它会自动把对应的路径信息添加到你的**widnows系统**里。
 
@@ -132,7 +142,7 @@ composer create-project dooioomoo/few . dev-master
     > 命令执行成功后，你就可以通过命令窗口，在任何路径下使用gulp以及gulp插件了。到这里gulp全局环境才算配置成功。
 
  3. **完成以上两项基本配置后**
-    
+
     > 编辑 ``` src > gulpfiles > gulp-settings.js``` 文件，将 ``` const server = "few.so";``` 变量中的 ``` few.so ``` 修改为你的本地域名访问地址。例如：
 
     ``` const server = "localhost"; ```
@@ -147,8 +157,8 @@ composer create-project dooioomoo/few . dev-master
     ```
     # gulp-settings.js
 
-     const server = "mywebsite.com"; 
-     
+     const server = "mywebsite.com";
+
      ```
 
      > 然后通过使用命令行，**进入到你的网站目录** ：*（包含gulpfile.js文件的根目录）* 下，**创建一个index.html文件**，并使用命令
@@ -173,134 +183,134 @@ gulpfile.js文件中，做了模块调用，并设置了**目录监控对象**�
 可以通过终端命令直接使用 ``` gulp {任务名} ```
 
 <pre>
-1. commonscss
+1. commonSass
     //编译src/scss/common全局css，并进行合并输出到（assets/css/commin.min.css）
-2. appcss
+2. appSass
     //编译src/scss/app的css,并进行合并输出到（assets/css/app.min.css）
 3. webfont
     //复制src/fonts目录到（assets/fonts/）
-4. commonjs
+4. commonJs
    //编译src/js/common、core全局js,并进行合并输出到（assets/js/common.min.js）
-5. appjs
+5. appJs
    //编译src/js/object里的文件，生成独立的js文件到（assets/js/{对应文件名}.min.js）
-6. imagesMini
+6. commonImgs
+   //輸出默認圖像
+7. ImageMini
    //压缩(assets/images)目录下的所有图像文件，以便提高网站访问速度。
-7. watch
+8. watch
    //开发模式，并监视src目录下的scss、js、imgs、fonts目录，并对与修改，作出局部编译、重新合并、输出到assets目录下，并刷新浏览器。
-8. default
+9.  default
    //对src目录下大的所有文件进行一次编译和生成。
 </pre>
 
 #### 3. gulp-settings.js具体说明
-
-```
-// 配置服务器域名：比如 localhost,mysite.local
-const server = "few.so";
-
-// 默认BroweserSync的打开端口
-const port = "3000";
-
-// 配置依赖目录的路径
-const vo = "vendor/";
+```js
 
 // 输出文件的根目录
-const assetFolder = "assets" + "/";
-// css样式表文件输出目录
-const css = assetFolder + "css" + "/";
-// js脚本输出目录
-const js = assetFolder + "js" + "/";
-// 图片输出目录
-const images = assetFolder + "images" + "/";
-// webfont输出目录
-const font = assetFolder + "fonts" + "/";
-
+const exportPath = "./assets/";
 // 源文件根目录
-const srcFolder = "src" + "/";
-// scss源文件目录
-const src_sass = srcFolder + "scss" + "/";
-// 图片源文件目录，这里建议不要存放psd等设计源格式文件，因为目标目录会被减肥，这里只存放网页显示用的未减肥图片，防止图片被破坏
-const src_img = srcFolder + "imgs" + "/";
-// js脚本源文件目录
-const src_js = srcFolder + "js" + "/";
-// webfont文件
-const src_fonts = srcFolder + "fonts" + "/";
-// 用来读取最优先js脚本列表
-const js_loader = require("../js/js-require.js");
-// settings模块数组
+const importPath = "./src/";
+const JsGlobal = requireLocal(importPath + "js/js-require.js");
+// 配置依赖目录的路径
+const vo = "vendor/";
+const commonFonts = exportPath + "fonts/";
+
 module.exports = {
-  //各种对应变量，并输出到其他模块
-  root: "/",
-  server: server,
-  port: port,
-  assetFolder: assetFolder,
-  cssPath: css,
-  jsPath: js,
-  imagesPath: images,
-  fontPath: font,
-  srcPath: srcFolder,
-  clearFolder: assetFolder + "temp/",
-  // scss文件的引入和输出指向
-  sass: {
-    importPath: {
-      common: [src_sass + "common/common.scss"],
-      app: [src_sass + "app/app.scss"],
+    base: {
+        exportPath: exportPath,
+        importPath: importPath,
+        clearFolder: exportPath + "temp/",
     },
-    exportPath: {
-      common: [css],
-      app: [css],
+    server: {
+        root: '/',
+        //name: 'localhost',
+        // 配置服务器域名：比如 localhost,mysite.local
+        name: 'few.so',
+        // 默认BroweserSync的打开端口
+        port: '3000',
     },
-  },
-  // js文件的引入和输出指向
-  js: {
-    importPath: {
-      common: js_loader.list.concat([
-        src_js + "common/**/*",
-        src_js + "core/*.js",
-      ]),
-      app: [src_js + "object/*.js"],
+    // scss文件的引入和输出指向
+    sass: {
+        common: {
+            import: [
+                importPath + "scss/common/common.scss"
+            ],
+            export: [
+                exportPath + "css/",
+            ],
+        },
+        app: {
+            import: [
+                importPath + "scss/app/app.scss"
+            ],
+            export: [
+                exportPath + "css/",
+            ],
+        }
     },
-    exportPath: {
-      common: [js],
-      app: [js],
+    // js文件的引入和输出指向
+    js: {
+        common: {
+            import: JsGlobal.list.concat([
+                importPath + "js/common/**/*",
+                importPath + "js/core/*.js",
+            ]),
+            export: [
+                exportPath + 'js/'
+            ],
+        },
+        app: {
+            import: [
+                importPath + "js/object/*.js"
+            ],
+            export: [
+                exportPath + 'js/'
+            ],
+        }
     },
-  },
-  // 图片的引入和输出指向
-  images: {
-    importPath: {
-      common: [src_img],
+    // 图片的引入和输出指向
+    images: {
+        common: {
+            import: [
+                importPath + "imgs/**/*"
+            ],
+            export: [
+                exportPath + 'images/'
+            ],
+        },
     },
-    exportPath: {
-      common: [images],
-    },
-  },
-  // 字体文件的引入和输出指向
-  webfonts: [
-    [vo + "fortawesome/font-awesome/webfonts/**/*", font + "fontawesome"],
-    [vo + "webfontkit/roboto/fonts/**/*", font + "roboto"],
-    [vo + "webfontkit/open-sans/fonts/**/*", font + "open-sans"],
-  ],
-};
+    // 字体文件的引入和输出指向
+    fonts: {
+        common: [
+            [vo + "fortawesome/font-awesome/webfonts/**/*", commonFonts + "fontawesome"],
+            [vo + "webfontkit/roboto/fonts/**/*", commonFonts + "roboto"],
+            [vo + "webfontkit/open-sans/fonts/**/*", commonFonts + "open-sans"],
+        ]
+    }
+}
+
 
 ```
 
+
 1. **数组**
-   
+
     > 数组里用来记录编译的文件，多个的时候：
     ```
       [
-          src_sass + "common/common.scss",
-          src_sass + "common/other.scss",
+          importPath + "scss/common/common.scss"
+          importPath + "scss/public/other.scss"
           ....
       ]
       ```
     > 用上面的的方式进行多个文件的加载
-      
+
 2. **scss文件说明**
     > scss文件分为```common```全局和```app```项目两个目录，任务编译时，不会编译子目录里的文件，只会通过数组设定的文件，进行索引式编译。其他的scss文件请在```common.scss```或者```app.scss```文件中使用 ```@import```的方式引入。
 3. **js文件说明**
     > js文件分为三个目录，分别是：common(全局js)、core(核心)、object(分散调用)。优先次序为common>core>object。
 
-    > **js-require.js**：是一个js源手动设定模块，它和common、core、object没有关系，但是会加载在他们三个目录所有js**之前**，主要为了方便调用诸如jquery、vue.js等框架型脚本来使用。可以根据需要，自己安排文件的加载位置和先后顺序。gulp会优先读取这里的js，并合并到```assets/js/common.min.js```文件中去。 
+    > **js-require.js**：是一个js源手动设定模块，它和common、core、object没有关系，但是会加载在他们三个目录所有js**之前**，主要为了方便调用诸如jquery、vue.js等框架型脚本来使用。可以根据需要，自己安排文件的加载位置和先后顺序。gulp会优先读取这里的js，并合并到```assets/js/common.min.js```文件中去。
 
 4. **webfont不同数组方式**
     > 由于webfont存放时可能会被同名覆盖，所以推荐以独立目录方式存放fonts文件。比如

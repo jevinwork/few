@@ -15,7 +15,8 @@ const newer = require("gulp-newer");
 const plumber = require("gulp-plumber");
 const postcss = require("gulp-postcss");
 const merge = require("merge-stream");
-const setting = require("./gulp-settings");
+const dotenv = require("dotenv");
+
 module.exports = {
   gulp: gulp,
   sass: sass,
@@ -30,6 +31,7 @@ module.exports = {
   plumber: plumber,
   postcss: postcss,
   merge: merge,
+  dotenv: dotenv,
   clean: (list) => {
     return gulp.src(list, { read: false, allowEmpty: true }).pipe(clean());
   },
@@ -51,14 +53,13 @@ module.exports = {
     return result;
   },
   php: () => {
-    php.server({ base: setting.root, port: setting.port, keepalive: true });
+    php.server({ base: setting.server.root, port: setting.server.port, keepalive: true });
   },
   browserSync_start: function browserSync(done) {
     browsersync.init({
       //在setting修改成真实域名
-      proxy: setting.server,
-      //proxy  : setting.server,
-      baseDir: setting.root,
+      proxy: setting.server.name,
+      baseDir: setting.server.root,
       open: true,
       notify: false,
     });

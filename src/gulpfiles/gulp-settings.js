@@ -1,65 +1,75 @@
-const server = "few.so";
-const port = "3000";
 
+const exportPath = "./assets/";
+const importPath = "./src/";
+const JsGlobal = requireLocal(importPath + "js/js-require.js");
 const vo = "vendor/";
+const commonFonts = exportPath + "fonts/";
 
-const assetFolder = "assets" + "/";
-const css = assetFolder + "css" + "/";
-const js = assetFolder + "js" + "/";
-const images = assetFolder + "images" + "/";
-const font = assetFolder + "fonts" + "/";
-
-const srcFolder = "src" + "/";
-const src_sass = srcFolder + "scss" + "/";
-const src_img = srcFolder + "imgs" + "/";
-const src_js = srcFolder + "js" + "/";
-const src_fonts = srcFolder + "fonts" + "/";
-const js_loader = require("../js/js-require.js");
 module.exports = {
-  root: "/",
-  server: server,
-  port: port,
-  assetFolder: assetFolder,
-  cssPath: css,
-  jsPath: js,
-  imagesPath: images,
-  fontPath: font,
-  srcPath: srcFolder,
-  clearFolder: assetFolder + "temp/",
-  sass: {
-    importPath: {
-      common: [src_sass + "common/common.scss"],
-      app: [src_sass + "app/app.scss"],
+    base: {
+        exportPath: exportPath,
+        importPath: importPath,
+        clearFolder: exportPath + "temp/",
     },
-    exportPath: {
-      common: [css],
-      app: [css],
+    server: {
+        root: '/',
+        //name: 'localhost',
+        name: 'few.so',
+        port: '3000',
     },
-  },
-  js: {
-    importPath: {
-      common: js_loader.list.concat([
-        src_js + "common/**/*",
-        src_js + "core/*.js",
-      ]),
-      app: [src_js + "object/*.js"],
+    sass: {
+        common: {
+            import: [
+                importPath + "scss/common/common.scss"
+            ],
+            export: [
+                exportPath + "css/",
+            ],
+        },
+        app: {
+            import: [
+                importPath + "scss/app/app.scss"
+            ],
+            export: [
+                exportPath + "css/",
+            ],
+        }
     },
-    exportPath: {
-      common: [js],
-      app: [js],
+    js: {
+        common: {
+            import: JsGlobal.list.concat([
+                importPath + "js/common/**/*",
+                importPath + "js/core/*.js",
+            ]),
+            export: [
+                exportPath + 'js/'
+            ],
+        },
+        app: {
+            import: [
+                importPath + "js/object/*.js"
+            ],
+            export: [
+                exportPath + 'js/'
+            ],
+        }
     },
-  },
-  images: {
-    importPath: {
-      common: [src_img],
+    images: {
+        common: {
+            import: [
+                importPath + "imgs/**/*"
+            ],
+            export: [
+                exportPath + 'images/'
+            ],
+        },
     },
-    exportPath: {
-      common: [images],
-    },
-  },
-  webfonts: [
-    [vo + "fortawesome/font-awesome/webfonts/**/*", font + "fontawesome"],
-    [vo + "webfontkit/roboto/fonts/**/*", font + "roboto"],
-    [vo + "webfontkit/open-sans/fonts/**/*", font + "open-sans"],
-  ],
-};
+    fonts: {
+        common: [
+            [vo + "fortawesome/font-awesome/webfonts/**/*", commonFonts + "fontawesome"],
+            [vo + "webfontkit/roboto/fonts/**/*", commonFonts + "roboto"],
+            [vo + "webfontkit/open-sans/fonts/**/*", commonFonts + "open-sans"],
+        ]
+    }
+}
+
