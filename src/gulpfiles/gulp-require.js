@@ -4,6 +4,7 @@ const gulp = require("gulp");
 const sass = require("gulp-sass");
 const concat = require("gulp-concat");
 const php = require("gulp-connect-php");
+const wait = require("gulp-wait");
 const browsersync = require("browser-sync").create();
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
@@ -14,6 +15,7 @@ const imagemin = require("gulp-imagemin");
 const newer = require("gulp-newer");
 const plumber = require("gulp-plumber");
 const postcss = require("gulp-postcss");
+const preprocess = require("gulp-preprocess");
 const merge = require("merge-stream");
 const dotenv = require("dotenv");
 
