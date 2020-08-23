@@ -23,7 +23,7 @@ var compile = function (target, done, multiple) {
     } else {
         return builder.gulp
             .src(setting.js[target].import)
-            .pipe(builder.concat("common.js"))
+            .pipe(builder.concat(target + ".js"))
             .pipe(builder.gulp.dest(setting.base.clearFolder))
             .pipe(
                 builder.minify({
