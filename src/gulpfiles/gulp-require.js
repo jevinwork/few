@@ -23,6 +23,8 @@ module.exports = {
   gulp: gulp,
   sass: sass,
   concat: concat,
+  preprocess: preprocess,
+  wait: wait,
   browsersync: browsersync,
   autoprefixer: autoprefixer,
   cssnano: cssnano,
