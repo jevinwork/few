@@ -31,6 +31,12 @@ module.exports = {
                 builder.gulp.series.apply(builder.gulp, task[1])
             );
         });
+        builder.gulp.watch(
+            [
+                "./**/*",
+            ],
+            builder.browserSync_reload
+        );
         return done();
     }
 }
