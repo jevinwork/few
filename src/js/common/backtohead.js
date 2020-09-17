@@ -1,6 +1,5 @@
 (function ($) {
   "use strict";
-  console.log("run!");
   $(function () {
     var layout =
       '<a href="javascript:void(0);" class="few-backtohead" style="display:none"></a>';
@@ -15,7 +14,6 @@
           700
         );
       });
-      console.log($(".few-backtohead").length);
     }
     $(window).on("scroll", function () {
       backTohead();
