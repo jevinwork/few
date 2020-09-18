@@ -33,6 +33,14 @@ module.exports = {
             export: [
                 exportPath + "css/",
             ],
+        },
+        app_mobile: {
+            import: [
+                importPath + "scss/app/app_mobile.scss"
+            ],
+            export: [
+                exportPath + "css/",
+            ],
         }
     },
     js: {
