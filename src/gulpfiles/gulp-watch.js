@@ -10,7 +10,7 @@ module.exports = {
             ],
             appSass: [
                 [setting.base.importPath + "scss/app/**/*"],
-                [compile.css.appSass,compile.css.appMobileSass, cleanFile.clear]
+                [compile.css.appSass, compile.css.appMobileSass, cleanFile.clear]
             ],
             commonJs: [
                 [
@@ -39,9 +39,9 @@ module.exports = {
         });
         builder.gulp.watch(
             [
-                setting.server.root + "**/*.php",
-                setting.server.root + "**/*.html",
-                setting.base.exportPath+"**/*",
+                "./**/*.php",
+                "./**/*.html",
+                setting.base.exportPath + "**/*",
             ],
             builder.browserSync_reload
         );
