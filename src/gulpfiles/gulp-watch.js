@@ -1,3 +1,5 @@
+const { settings } = require("cluster");
+
 module.exports = {
     init: (done) => {
         // 监控项目内各个文件夹的修改，并运行对应的编译后自动刷新
@@ -8,10 +10,14 @@ module.exports = {
             ],
             appSass: [
                 [setting.base.importPath + "scss/app/**/*"],
-                [compile.css.appSass, cleanFile.clear]
+                [compile.css.appSass,compile.css.appMobileSass, cleanFile.clear]
             ],
             commonJs: [
-                setting.js.common.import,
+                [
+                    setting.base.importPath + "js/common/**/*",
+                    setting.base.importPath + "js/core/**/*",
+                    setting.base.importPath + "js/js-require.js",
+                ],
                 [compile.js.commonJs, cleanFile.clear]
             ],
             appJs: [
@@ -33,7 +39,9 @@ module.exports = {
         });
         builder.gulp.watch(
             [
-                "./**/*",
+                setting.server.root + "**/*.php",
+                setting.server.root + "**/*.html",
+                setting.base.exportPath+"**/*",
             ],
             builder.browserSync_reload
         );
