@@ -37,7 +37,6 @@ exports.default = builder.gulp.series(
     builder.gulp.series(
         compile.css.commonSass,
         compile.css.appSass,
-        compile.css.appMobileSass,
     ),
     builder.gulp.series(
         compile.js.commonJs,
