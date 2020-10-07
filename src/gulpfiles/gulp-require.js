@@ -37,7 +37,7 @@ module.exports = {
   merge: merge,
   dotenv: dotenv,
   clean: (list) => {
-    return gulp.src(list, { read: false, allowEmpty: true }).pipe(clean());
+    return gulp.src(list, { read: false, allowEmpty: true }).pipe(clean({force: true}));
   },
   concatArray: function (arr1, arr2, arr3) {
     if (arguments.length <= 1) {
